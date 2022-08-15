@@ -1,0 +1,6 @@
+{
+  "parent": "block/crop",
+  "textures": {
+    "crop": "dndmod:block/custom_crop_block2"
+  }
+}

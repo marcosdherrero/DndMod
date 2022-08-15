@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "dndmod:custom_item"
+    }
+  },
+  "result": {
+    "item": "dndmod:custom_block"
+  }
+}

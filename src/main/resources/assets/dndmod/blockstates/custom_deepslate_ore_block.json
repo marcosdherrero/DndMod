@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": {"model": "dndmod:block/custom_deepslate_ore_block"}
+  }
+}

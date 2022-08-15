@@ -1,0 +1,21 @@
+{
+  "item.dndmod.custom_raw_item": "Custom Raw Item",
+  "item.dndmod.custom_item": "Custom Item",
+  "item.dndmod.dice_item": "20 Sided Dice",
+  "item.dndmod.custom_vegetable_item": "Custom Vegetable Item",
+  "item.dndmod.custom_seeds_item": "Custom Seeds Item",
+
+  "block.dndmod.custom_block": "Custom Block",
+  "block.dndmod.custom_ore_block": "Custom Ore Block",
+  "block.dndmod.custom_deepslate_ore_block": "Custom Deepslate Ore Block",
+  "block.dndmod.custom_endstone_ore_block": "Custom Endstone Ore Block",
+  "block.dndmod.custom_netherrack_ore_block": "Custom Netherrack Ore Block",
+  "block.dndmod.custom_jump_block": "Custom Jump Block",
+  "block.dndmod.custom_lamp_block": "Custom Lamp Block",
+  "block.dndmod.custom_crop_block": "Custom Crop Block",
+
+
+  "itemGroup.dndmod.dnd_mod_items": "DND Mod Items Tab",
+
+  "entity.minecraft.villager.custom_villager_profession": "Dice Lord"
+}

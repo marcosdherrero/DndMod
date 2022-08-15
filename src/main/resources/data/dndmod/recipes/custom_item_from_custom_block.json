@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "dndmod:custom_block"
+    }
+  ],
+  "result": {
+    "item": "dndmod:custom_item",
+    "count": 9
+  }
+}

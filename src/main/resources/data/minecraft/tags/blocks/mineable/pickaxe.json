@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "dndmod:custom_block",
+    "dndmod:custom_ore_block",
+    "dndmod:custom_deepslate_ore_block",
+    "dndmod:custom_endstone_ore_block",
+    "dndmod:custom_netherrack_ore_block"
+  ]
+}

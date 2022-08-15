@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "dndmod:block/custom_deepslate_ore_block"
+  }
+}
