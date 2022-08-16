@@ -1,18 +1,22 @@
 package net.marcos.dndmod.block.custom;
 
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.marcos.dndmod.block.ModBlocks;
 import net.marcos.dndmod.item.ModItems;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CropBlock;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 
-public class CustomCropBlock extends CropBlock {
+public class CustomCropBlock extends CropBlock {                                                                        //implements ClientModInitializer {
 
     public static final IntProperty AGE =                                                                               //creates IntProperty called AGE
-            IntProperty.of("age", 0,6);                                                               //name,min,max
+            IntProperty.of("age", 0,6);                                                              //name,min,max
 
     public CustomCropBlock(Settings settings) {                                                                         //Custom Crop Block Constructor
         super(settings);
@@ -33,6 +37,10 @@ public class CustomCropBlock extends CropBlock {
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(AGE);
     }
+//    @Override
+//    public void onInitializeClient() {
+//        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CUSTOM_CROP_BLOCK, RenderLayer.getCutout());                    //Creates a render Layer to cut out the Custom Crop Block's png
+//    }
 }
 
 

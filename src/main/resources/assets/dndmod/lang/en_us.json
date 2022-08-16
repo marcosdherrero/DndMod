@@ -17,5 +17,10 @@
 
   "itemGroup.dndmod.dnd_mod_items": "DND Mod Items Tab",
 
-  "entity.minecraft.villager.custom_villager_profession": "Dice Lord"
+  "entity.minecraft.villager.custom_villager_profession": "Dice Lord",
+
+  "key.category.dndmod.custom": "Custom Key Binds",
+  "key.dndmod.custom_key_one": "Custom Key One",
+  "key.dndmod.custom_key_two": "Custom Key Two",
+  "key.dndmod.custom_key_three": "Custom Key Three"
 }
