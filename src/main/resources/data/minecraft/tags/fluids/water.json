@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "dndmod:custom_fluid",
+    "dndmod:flowing_custom_fluid"
+  ]
+}

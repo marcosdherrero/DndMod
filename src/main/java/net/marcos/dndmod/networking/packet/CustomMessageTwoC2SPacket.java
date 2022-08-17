@@ -29,9 +29,9 @@ public class CustomMessageTwoC2SPacket {
             PacketSender responseSender)
     {                                                                                                                   //Everything Here Happens ONLY on the Server
        ServerWorld world = player.getWorld();                                                                           //Creates a ServerWorld variable called world which is our player.getWorld();
-       //int playerThirstLevel = ((IEntityDataSaver) player).getPersistentData().getInt("thirst_level");             //Creates an Int Variable player Thirst Level
+       //int playerThirstLevel = ((IEntityDataSaver) player).getPersistentData().getInt("thirst_level");                //Creates an Int Variable player Thirst Level
        if(isWaterAroundThem(player, world, 2)){
-        world.playSound(                                                                                             //playSound(@Nullable PlayerEntity player, BlockPos pos, SoundEvent sound, SoundCategory category, float volume, float pitch)
+        world.playSound(                                                                                                //playSound(@Nullable PlayerEntity player, BlockPos pos, SoundEvent sound, SoundCategory category, float volume, float pitch)
                    null,                                                                                                //Player Entity
                    player.getBlockPos(),                                                                                //Position that the sound will come from
                    SoundEvents.ENTITY_GENERIC_DRINK,                                                                    //Sound Event

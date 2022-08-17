@@ -7,10 +7,7 @@ import net.marcos.dndmod.block.ModBlocks;
 import net.marcos.dndmod.item.custom.DiceItem;
 
 import net.minecraft.block.ComposterBlock;
-import net.minecraft.item.AliasedBlockItem;
-import net.minecraft.item.FoodComponent;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -30,6 +27,10 @@ public class ModItems {
             new AliasedBlockItem(ModBlocks.CUSTOM_CROP_BLOCK,                                                           //new AliasedBlockItem
             new FabricItemSettings().group(ModItemGroup.DND_MOD_ITEMS)),                                                //new FabricItemSettings ItemGroup
             3);                                                                                                         //Level Increase Chance when Composted
+
+   public static final Item CUSTOM_GREAT_SWORD = registerItem("custom_great_sword",
+           new SwordItem(ToolMaterials.DIAMOND, 10, 10f,
+                   new FabricItemSettings().group(ModItemGroup.DND_MOD_ITEMS).maxCount(1)));
 
     public static final Item CUSTOM_VEGETABLE_ITEM = registerCompostItem("custom_vegetable_item",                //Register Custom Vegetable Item registerCompostItem(String name, Item item, float levelIncreaseChance)
             new Item(new FabricItemSettings()                                                                           //new FabricItemSettings of

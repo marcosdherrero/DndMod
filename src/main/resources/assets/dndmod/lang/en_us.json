@@ -4,6 +4,8 @@
   "item.dndmod.dice_item": "20 Sided Dice",
   "item.dndmod.custom_vegetable_item": "Custom Vegetable Item",
   "item.dndmod.custom_seeds_item": "Custom Seeds Item",
+  "item.dndmod.custom_fluid_bucket": "Custom Fluid Bucket",
+  "item.dndmod.custom_great_sword": "Custom Great Sword",
 
   "block.dndmod.custom_block": "Custom Block",
   "block.dndmod.custom_ore_block": "Custom Ore Block",
@@ -13,7 +15,6 @@
   "block.dndmod.custom_jump_block": "Custom Jump Block",
   "block.dndmod.custom_lamp_block": "Custom Lamp Block",
   "block.dndmod.custom_crop_block": "Custom Crop Block",
-
 
   "itemGroup.dndmod.dnd_mod_items": "DND Mod Items Tab",
 
