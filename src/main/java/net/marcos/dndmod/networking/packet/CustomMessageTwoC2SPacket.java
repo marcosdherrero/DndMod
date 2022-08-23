@@ -55,7 +55,7 @@ public class CustomMessageTwoC2SPacket {
                    .5F,                                                                                                 //Volume
                    world.random.nextFloat()*0.1F+0.9F);                                                                 //Pitch
 
-           ThirstLevelData.removeThirstLevel(((IEntityDataSaver) player), 1);                                //Refill Player Thirst by 10
+           ThirstLevelData.removeThirstLevel(((IEntityDataSaver) player), 1);                                //Remove Player Thirst by 1
 
            player.sendMessage(Text.literal("No Water Around! Thirst Level is: "+                                //Sends Player Message that they failed to drink water and what their current thirst level is
                            ((IEntityDataSaver) player).getPersistentData().getInt("thirst_level"))

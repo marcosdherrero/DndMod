@@ -1,14 +1,14 @@
 {
-	"credit": "Made with Blockbench",
+	"credit" : "Made with Blockbench",
 	"textures": {
 		"0": "dndmod:item/handle_texture",
 		"1": "dndmod:item/guard_texture",
 		"2": "dndmod:item/blade_texture",
-		"particle": "dndmod:item/handle_texture"
+		"particle": "dndmod:item/blade_texture"
 	},
 	"elements": [
 		{
-			"name": "handle_texture",
+			"name": "dndmod:item/handle_texture",
 			"from": [7.25, 0, 7.3],
 			"to": [8.75, 7, 8.7],
 			"faces": {
@@ -21,7 +21,7 @@
 			}
 		},
 		{
-			"name": "guard_texture",
+			"name": "dndmod:item/guard_texture",
 			"from": [4, 6.5, 7.25],
 			"to": [12, 7.5, 8.75],
 			"faces": {
@@ -46,8 +46,8 @@
 			}
 		},
 		{
-			"from": [7.125, 14, 7.75],
-			"to": [8.875, 21, 8.13],
+			"from": [7.125, 14, 7.8],
+			"to": [8.875, 21, 8.18],
 			"faces": {
 				"north": {"uv": [0, 7, 2, 14], "texture": "#2"},
 				"east": {"uv": [8, 0, 9, 7], "texture": "#2"},
@@ -58,8 +58,8 @@
 			}
 		},
 		{
-			"from": [7.25, 21, 7.75],
-			"to": [8.75, 28, 8],
+			"from": [7.25, 21, 7.87],
+			"to": [8.75, 28, 8.12],
 			"faces": {
 				"north": {"uv": [4, 7, 6, 14], "texture": "#2"},
 				"east": {"uv": [9, 0, 10, 7], "texture": "#2"},
@@ -72,24 +72,22 @@
 	],
 	"display": {
 		"thirdperson_righthand": {
-			"rotation": [9, 118, 0],
+			"rotation": [9, 92, 0],
 			"translation": [0.25, 3, 2],
 			"scale": [1.5, 1.5, 1.5]
 		},
 		"thirdperson_lefthand": {
-			"rotation": [9, 118, 0],
+			"rotation": [9, 92, 0],
 			"translation": [0.25, 3, 2],
 			"scale": [1.5, 1.5, 1.5]
 		},
 		"firstperson_righthand": {
-			"rotation": [-39, -100, 12],
-			"translation": [4, -0.5, -4],
-			"scale": [1.5, 1.5, 1.5]
+			"rotation": [2, -100, 12],
+			"translation": [2.5, 3.25, 0.5]
 		},
 		"firstperson_lefthand": {
-			"rotation": [-39, -100, 12],
-			"translation": [4, -0.5, -4],
-			"scale": [1.5, 1.5, 1.5]
+			"rotation": [2, -100, 12],
+			"translation": [2.5, 3.25, 0.5]
 		},
 		"ground": {
 			"rotation": [-95, 14, 20],
@@ -103,8 +101,7 @@
 		},
 		"head": {
 			"rotation": [-53, 91, 0],
-			"translation": [-0.75, 7.75, -8.5],
-			"scale": [0.72, 0.72, 0.71]
+			"translation": [0, 6.75, -6.75]
 		},
 		"fixed": {
 			"rotation": [-2, 10, 41],
@@ -121,7 +118,7 @@
 				0,
 				1,
 				{
-					"name": "blade_texture",
+					"name": "Sword",
 					"origin": [0, 0, 0],
 					"color": 0,
 					"children": [2, 3, 4]

@@ -45,7 +45,7 @@ public class ModLootTableModifiers {
                 LootPool.Builder poolBuilder = LootPool.builder()                                                       //Creates a new LootPool.Builder
                         .rolls(ConstantLootNumberProvider.create(1))                                                    //Number of rolls when Item is called
                         .conditionally(RandomChanceLootCondition.builder(1f))                                    //Sets what % chance an item will successfully hit with conditionally
-                        .with(ItemEntry.builder(ModItems.DICE_ITEM))                                                    //Sets The type of Item that is dropped from this loot pool
+                        .with(ItemEntry.builder(ModItems.D_TWENTY))                                                    //Sets The type of Item that is dropped from this loot pool
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f,1.0f))                //Sets how many items you can get from low,high will get when your drop hits
                                 .build());                                                                              //Builds this LootPool.Builder poolBuilder
                 tableBuilder.pool(poolBuilder.build());                                                                 //Applies poolBuilder to tableBuilder

@@ -17,7 +17,7 @@ public class ModTrades {
                 factories -> {                                                                                          //Creates a Factory List
                     factories.add(((entity, random) -> new TradeOffer(                                                  //Adds a new factory to the list of the TradeOffer - public TradeOffer(ItemStack buyItem, ItemStack sellItem, int maxUses, int merchantExperience, float priceMultiplier)
                             new ItemStack(ModItems.CUSTOM_ITEM, 64),                                             //Sets Trader buy item from new ItemStack(Items, count)
-                            new ItemStack(ModItems.DICE_ITEM,1),                                                 //Sets Trader sell item from new ItemStack(Items, count)
+                            new ItemStack(ModItems.D_TWENTY,1),                                                 //Sets Trader sell item from new ItemStack(Items, count)
                             1,10,0.02f                                                                //Max Items, Merchant Experience, Price Multiplier
                     )));
                 });

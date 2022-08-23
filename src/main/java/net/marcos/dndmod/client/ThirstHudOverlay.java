@@ -29,8 +29,8 @@ public class ThirstHudOverlay implements HudRenderCallback {
     public void onHudRender(MatrixStack matrixStack, float tickDelta) {
         int x = 0;                                                                                                      //x position
         int y = 0;                                                                                                      //y position
-        int u = 0;
-        int v = 0;
+        int u = 0;                                                                                                      //Left most Position
+        int v = 0;                                                                                                      //Top Most Position
 
         MinecraftClient client = MinecraftClient.getInstance();                                                         //Gets the Instance of the MinecraftClient that is running for the player
         if(client != null) {                                                                                             //Ensures that the Client Screen is not null
@@ -53,7 +53,7 @@ public class ThirstHudOverlay implements HudRenderCallback {
 
             for (int i = 0; i < 10; i++) {                                                                              //Prints out 10 Water Bottles
                 x = width/2 - 94 +(i*9);
-                y = height - 30;
+                y = height - 35;
                 int textureSquareWidth = 12;
                 int textureSquareHeight = 12;
                 int regionWidth = 12;
@@ -61,30 +61,38 @@ public class ThirstHudOverlay implements HudRenderCallback {
                 int textureWidth = 12;
                 int textureHeight = 12;
                 int mapRange = mapRange(9,0,textureHeight,0, playerThirstLevelRemTen);
-                int reversedMap = mapRange(textureHeight,0,0,textureHeight*2,mapRange);
+                int reversedMap = mapRange(textureHeight,0,0,textureHeight-1,mapRange);
 
-                if (playerThirstLevelTensPlace > (i)) { //WaterBottle is full Draw it at i                              //Selects if bottle is filled if thirst is greater than or equal to its position
+
+                if(playerThirstLevel == 0){
+                    RenderSystem.setShaderTexture(0, EMPTY_THIRST_BOTTLE);                                       //Selects EMPTY_THIRST_BOTTLE texture
+                    DrawableHelper.drawTexture(matrixStack, x , y,u, v, textureSquareWidth, textureSquareHeight, textureWidth, textureHeight);
+                }else if (playerThirstLevelTensPlace > (i)) { //WaterBottle is full Draw it at i                              //Selects if bottle is filled if thirst is greater than its position
                     RenderSystem.setShaderTexture(0, FILLED_THIRST_BOTTLE);                                      //Selects FILLED_THIRST_BOTTLE texture
-                    DrawableHelper.drawTexture(
+                    DrawableHelper.drawTexture(                                                                         //Draws the Texture
                             matrixStack,
                             x , y , u, v,
                             textureSquareWidth,
                             textureSquareHeight,
                             textureWidth,
                             textureHeight);
-                }else if(playerThirstLevelTensPlace == i) {
+                }else if(playerThirstLevelTensPlace == i) {                                                             //If the potion bottle relates to that tenth of the count
 
-                    DrawableHelper.enableScissor(x,y,x+textureWidth,y+reversedMap);
-                    RenderSystem.setShaderTexture(0, EMPTY_THIRST_BOTTLE);                                       //Selects EMPTY_THIRST_BOTTLE texture
-                    DrawableHelper.drawTexture(matrixStack, x , y ,u, v, textureSquareWidth, textureSquareHeight, textureWidth, textureHeight);
-                    DrawableHelper.enableScissor(x,y+reversedMap,x+textureWidth,y+textureHeight);
-                    RenderSystem.setShaderTexture(0, FILLED_THIRST_BOTTLE);                                      //Selects FILLED_THIRST_BOTTLE texture
-                    DrawableHelper.drawTexture(matrixStack, x , y ,u, v, textureSquareWidth, textureSquareHeight, textureWidth, textureHeight);
+                    //DrawableHelper.enableScissor(x,y,x+textureWidth,y+reversedMap);
+                    RenderSystem.setShaderTexture(0, EMPTY_THIRST_BOTTLE);                                      //Selects EMPTY_THIRST_BOTTLE texture
+                    DrawableHelper.drawTexture(matrixStack, x , y ,u, v, textureSquareWidth,                            //Draws the Full Empty Bottle
+                            textureSquareHeight, textureWidth, textureHeight);
+
+                    DrawableHelper.enableScissor(x,y+reversedMap,x+textureWidth,y+textureHeight);           //Enables a Scissor to select what area of the bottle is filled
+                    RenderSystem.setShaderTexture(0, FILLED_THIRST_BOTTLE);                                     //Selects FILLED_THIRST_BOTTLE texture
+                    DrawableHelper.drawTexture(matrixStack, x , y ,u, v, textureSquareWidth,
+                            textureSquareHeight, textureWidth, textureHeight);
                     RenderSystem.disableScissor();
 
-                }else {
+                }else{
                     RenderSystem.setShaderTexture(0, EMPTY_THIRST_BOTTLE);                                       //Selects EMPTY_THIRST_BOTTLE texture
-                    DrawableHelper.drawTexture(matrixStack, x , y,u, v, textureSquareWidth, textureSquareHeight, textureWidth, textureHeight);
+                    DrawableHelper.drawTexture(matrixStack, x , y,u, v, textureSquareWidth,
+                            textureSquareHeight, textureWidth, textureHeight);
                 }
             }
         }

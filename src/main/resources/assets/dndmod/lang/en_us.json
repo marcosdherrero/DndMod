@@ -1,7 +1,14 @@
 {
   "item.dndmod.custom_raw_item": "Custom Raw Item",
   "item.dndmod.custom_item": "Custom Item",
-  "item.dndmod.dice_item": "20 Sided Dice",
+  "item.dndmod.d_twenty": "20 Sided Dice",
+  "item.dndmod.d_twelve": "12 Sided Dice",
+  "item.dndmod.d_ten": "10 Sided Dice",
+  "item.dndmod.d_eight": "8 Sided Dice",
+  "item.dndmod.d_six": "6 Sided Dice",
+  "item.dndmod.d_four": "4 Sided Dice",
+  "item.dndmod.d_two": "2 Sided Dice",
+  "item.dndmod.d_one_hundred": "100 Sided Dice",
   "item.dndmod.custom_vegetable_item": "Custom Vegetable Item",
   "item.dndmod.custom_seeds_item": "Custom Seeds Item",
   "item.dndmod.custom_fluid_bucket": "Custom Fluid Bucket",
@@ -15,8 +22,9 @@
   "block.dndmod.custom_jump_block": "Custom Jump Block",
   "block.dndmod.custom_lamp_block": "Custom Lamp Block",
   "block.dndmod.custom_crop_block": "Custom Crop Block",
+  "block.dndmod.custom_table_block": "Custom Table Block",
 
-  "itemGroup.dndmod.dnd_mod_items": "DND Mod Items Tab",
+  "itemGroup.dndmod.dnd_mod_items": "Custom Mod Items Tab",
 
   "entity.minecraft.villager.custom_villager_profession": "Dice Lord",
 

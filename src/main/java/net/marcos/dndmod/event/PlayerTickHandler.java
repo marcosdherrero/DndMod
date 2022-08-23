@@ -1,8 +1,10 @@
 package net.marcos.dndmod.event;
 
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerBlockEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.marcos.dndmod.util.IEntityDataSaver;
 import net.marcos.dndmod.util.ThirstLevelData;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Style;
@@ -35,4 +37,5 @@ public class PlayerTickHandler implements ServerTickEvents.StartTick{
     public static int getRandomNumberOneTThree(){                                                                       //Method to get a random number 1 through 3
         return (net.minecraft.util.math.random.Random.createLocal().nextInt(3))+1;
     }
+
 }

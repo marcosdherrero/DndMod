@@ -41,7 +41,7 @@ public class ModFluids {
         CUSTOM_FLUID_BUCKET = Registry.register(
                 Registry.ITEM,
                 new Identifier(DnDMod.MOD_ID,"custom_fluid_bucket"),
-                new BucketItem(ModFluids.STILL_CUSTOM_FLUID, new FabricItemSettings().group(ModItemGroup.DND_MOD_ITEMS)
+                new BucketItem(ModFluids.STILL_CUSTOM_FLUID, new FabricItemSettings().group(ModItemGroup.CUSTOM_ITEMS)
                         .recipeRemainder(Items.BUCKET).maxCount(1)));
     }
 }

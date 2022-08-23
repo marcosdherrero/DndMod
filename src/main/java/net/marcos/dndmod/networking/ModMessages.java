@@ -33,5 +33,7 @@ public class ModMessages {
         ClientPlayNetworking.registerGlobalReceiver(                                                                    //Calls a boolean registerGlobalReceiver(Identifier channelName, PlayChannelHandler channelHandler) which returns ServerNetworkingImpl.PLAY.registerGlobalReceiver(channelName, channelHandler)
                 CUSTOM_MESSAGE_THREE_ID,                                                                                //ID name
                 CustomMessageThreeS2CPacket::receive);                                                                  //Packet With channelHandler
+
+
     }
 }

@@ -8,33 +8,57 @@ import net.marcos.dndmod.item.custom.DiceItem;
 
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.item.*;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class ModItems {
 
-    public static final Item DICE_ITEM = registerItem("dice_item",                                               //Register Dice Item registerItem(String name, Item item)
-            new DiceItem(new FabricItemSettings().group(ModItemGroup.DND_MOD_ITEMS).maxCount(1)));                      //new DiceItem with FabricItemSettings adding the group and maxCount
+
+
+    public static final Item D_TWENTY = registerItem("d_twenty",                                                    //Register Dice Item registerItem(String name, Item item)
+            new DiceItem(new FabricItemSettings().group(ModItemGroup.DND_MOD_ITEMS).maxCount(1),  20));     //new DiceItem with FabricItemSettings adding the group and maxCount, and the number of sides for the die
+
+    public static final Item D_TWELVE = registerItem("d_twelve",                                                    //Register Dice Item registerItem(String name, Item item)
+            new DiceItem(new FabricItemSettings().group(ModItemGroup.DND_MOD_ITEMS).maxCount(1),  12));     //new DiceItem with FabricItemSettings adding the group and maxCount, and the number of sides for the die
+
+    public static final Item D_TEN = registerItem("d_ten",                                                    //Register Dice Item registerItem(String name, Item item)
+            new DiceItem(new FabricItemSettings().group(ModItemGroup.DND_MOD_ITEMS).maxCount(1),  10));     //new DiceItem with FabricItemSettings adding the group and maxCount, and the number of sides for the die
+
+    public static final Item D_EIGHT = registerItem("d_eight",                                                    //Register Dice Item registerItem(String name, Item item)
+            new DiceItem(new FabricItemSettings().group(ModItemGroup.DND_MOD_ITEMS).maxCount(1),  8));     //new DiceItem with FabricItemSettings adding the group and maxCount, and the number of sides for the die
+
+    public static final Item D_SIX = registerItem("d_six",                                                    //Register Dice Item registerItem(String name, Item item)
+            new DiceItem(new FabricItemSettings().group(ModItemGroup.DND_MOD_ITEMS).maxCount(1),  6));     //new DiceItem with FabricItemSettings adding the group and maxCount, and the number of sides for the die
+
+    public static final Item D_FOUR = registerItem("d_four",                                                    //Register Dice Item registerItem(String name, Item item)
+            new DiceItem(new FabricItemSettings().group(ModItemGroup.DND_MOD_ITEMS).maxCount(1),  4));     //new DiceItem with FabricItemSettings adding the group and maxCount, and the number of sides for the die
+
+    public static final Item D_TWO = registerItem("d_two",                                                    //Register Dice Item registerItem(String name, Item item)
+            new DiceItem(new FabricItemSettings().group(ModItemGroup.DND_MOD_ITEMS).maxCount(1),  2));     //new DiceItem with FabricItemSettings adding the group and maxCount, and the number of sides for the die
+
+    public static final Item D_ONE_HUNDRED = registerItem("d_one_hundred",                                       //Register Dice Item registerItem(String name, Item item)
+            new DiceItem(new FabricItemSettings().group(ModItemGroup.DND_MOD_ITEMS).maxCount(1),  100));    //new DiceItem with FabricItemSettings adding the group and maxCount, and the number of sides for the die
 
     public static final Item CUSTOM_RAW_ITEM = registerItem("custom_raw_item",                                   //Register Custom Raw Ore Item registerItem(String name, Item item)
-            new Item(new FabricItemSettings().group(ModItemGroup.DND_MOD_ITEMS)));                                      //new Item with FabricItemSettings adding the group
+            new Item(new FabricItemSettings().group(ModItemGroup.CUSTOM_ITEMS)));                                      //new Item with FabricItemSettings adding the group
 
     public static final Item CUSTOM_ITEM = registerItem("custom_item",                                           //Register Custom Item registerItem(String name, Item item)
-            new Item(new FabricItemSettings().group(ModItemGroup.DND_MOD_ITEMS)));                                      //new Item with FabricItemSettings adding the group
+            new Item(new FabricItemSettings().group(ModItemGroup.CUSTOM_ITEMS)));                                      //new Item with FabricItemSettings adding the group
 
     public static final Item CUSTOM_SEEDS_ITEM = registerCompostItem(                                                   //Register Custom Seeds Item registerCompostItem(String name, Item item, float levelIncreaseChance)
             "custom_seeds_item",                                                                                        //name
             new AliasedBlockItem(ModBlocks.CUSTOM_CROP_BLOCK,                                                           //new AliasedBlockItem
-            new FabricItemSettings().group(ModItemGroup.DND_MOD_ITEMS)),                                                //new FabricItemSettings ItemGroup
+            new FabricItemSettings().group(ModItemGroup.CUSTOM_ITEMS)),                                                //new FabricItemSettings ItemGroup
             3);                                                                                                         //Level Increase Chance when Composted
 
    public static final Item CUSTOM_GREAT_SWORD = registerItem("custom_great_sword",
            new SwordItem(ToolMaterials.DIAMOND, 10, 10f,
-                   new FabricItemSettings().group(ModItemGroup.DND_MOD_ITEMS).maxCount(1)));
+                   new FabricItemSettings().group(ModItemGroup.CUSTOM_ITEMS).maxCount(1)));
 
     public static final Item CUSTOM_VEGETABLE_ITEM = registerCompostItem("custom_vegetable_item",                //Register Custom Vegetable Item registerCompostItem(String name, Item item, float levelIncreaseChance)
             new Item(new FabricItemSettings()                                                                           //new FabricItemSettings of
-                    .group(ModItemGroup.DND_MOD_ITEMS)                                                                  //ItemGroup
+                    .group(ModItemGroup.CUSTOM_ITEMS)                                                                  //ItemGroup
                     .food(new FoodComponent.Builder()                                                                   //Makes the item into a FoodComponent
                             .hunger(4)                                                                                  //Hunger Modifier
                             .saturationModifier(4f)                                                                     //Saturation Modifier

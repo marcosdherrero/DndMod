@@ -13,6 +13,9 @@ import net.marcos.dndmod.event.KeyInputHandler;
 import net.marcos.dndmod.fluid.ModFluids;
 import net.marcos.dndmod.networking.ModMessages;
 
+import net.marcos.dndmod.screen.CustomTableBlockScreen;
+import net.marcos.dndmod.screen.ModScreenHandlers;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.util.Identifier;
 
@@ -40,5 +43,7 @@ public class DnDModClient implements ClientModInitializer {
                 RenderLayer.getTranslucent(),
                 ModFluids.STILL_CUSTOM_FLUID,
                 ModFluids.FLOWING_CUSTOM_FLUID);
+
+        HandledScreens.register(ModScreenHandlers.CUSTOM_TABLE_BLOCK_SCREEN_HANDLER, CustomTableBlockScreen::new);
     }
 }

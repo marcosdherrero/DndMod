@@ -5,11 +5,13 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 
 import net.marcos.dndmod.block.ModBlocks;
+import net.marcos.dndmod.block.entity.ModBlockEntities;
 import net.marcos.dndmod.event.PlayerTickHandler;
 import net.marcos.dndmod.fluid.ModFluids;
 import net.marcos.dndmod.item.ModItems;
 import net.marcos.dndmod.networking.ModMessages;
 import net.marcos.dndmod.painting.ModPaintings;
+import net.marcos.dndmod.screen.ModScreenHandlers;
 import net.marcos.dndmod.util.ModLootTableModifiers;
 import net.marcos.dndmod.villager.ModTrades;
 import net.marcos.dndmod.villager.ModVillagers;
@@ -36,7 +38,9 @@ public class DnDMod implements ModInitializer {																			//Main class D
 		ModLootTableModifiers.modifyLootTables();																		//modify ModLookTablesModifiers
 		ModMessages.registerC2SPackets();																				//register ModMessages the Client communicating to the Server
 		ServerTickEvents.START_SERVER_TICK.register(new PlayerTickHandler());											//register a new PlayerTickHandler in the Server Tick Events
-		ModFluids.register();
+		ModFluids.register();																							//register the custom fluid class
+		ModBlockEntities.registerBlockEntities();
+		ModScreenHandlers.registerAllScreenHandlers();																	//register all the custom Screen Handlers
 
 		LOGGER.info("Hello Fabric world!");
 	}

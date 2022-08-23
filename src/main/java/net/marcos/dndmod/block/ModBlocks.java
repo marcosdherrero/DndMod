@@ -6,13 +6,11 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.marcos.dndmod.DnDMod;
 import net.marcos.dndmod.block.custom.CustomCropBlock;
 import net.marcos.dndmod.block.custom.CustomLampBlock;
+import net.marcos.dndmod.block.custom.CustomTableBlock;
 import net.marcos.dndmod.block.custom.JumpBlock;
 import net.marcos.dndmod.item.ModItemGroup;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.Material;
-import net.minecraft.block.OreBlock;
+import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -28,7 +26,7 @@ public class ModBlocks {
                 (Material.METAL)                                                                                        //Set Material Type
                 .strength(4f)                                                                                           //Set Block Strength
                 .requiresTool()),                                                                                       //Tells the game if your block requires a tool to break
-        ModItemGroup.DND_MOD_ITEMS);                                                                                    //Block Item Group
+        ModItemGroup.CUSTOM_ITEMS);                                                                                    //Block Item Group
 
     public static final Block CUSTOM_ORE_BLOCK = registerBlock(                                                         //Register CUSTOM_ORE_BLOCK
             "custom_ore_block",                                                                                         //name
@@ -37,7 +35,7 @@ public class ModBlocks {
                     .strength(4f)                                                                                       //Set Block Strength
                     .requiresTool(),                                                                                    //Tells the game if your block requires a tool to break
             UniformIntProvider.create(3,7)),                                                                            //Range of xp gained from breaking ore
-            ModItemGroup.DND_MOD_ITEMS);                                                                                //Block Item Group
+            ModItemGroup.CUSTOM_ITEMS);                                                                                //Block Item Group
 
     public static final Block CUSTOM_DEEPSLATE_ORE_BLOCK = registerBlock(                                               //Register CUSTOM_DEEPSLATE_ORE_BLOCK
             "custom_deepslate_ore_block",
@@ -46,7 +44,7 @@ public class ModBlocks {
                     .strength(4f)
                     .requiresTool(),
             UniformIntProvider.create(3,7)),
-            ModItemGroup.DND_MOD_ITEMS);
+            ModItemGroup.CUSTOM_ITEMS);
 
     public static final Block CUSTOM_ENDSTONE_ORE_BLOCK = registerBlock(                                                //Register CUSTOM_ENDSTONE_ORE_BLOCK
             "custom_endstone_ore_block",
@@ -55,7 +53,7 @@ public class ModBlocks {
                     .strength(4f)
                     .requiresTool(),
             UniformIntProvider.create(3,7)),
-            ModItemGroup.DND_MOD_ITEMS);
+            ModItemGroup.CUSTOM_ITEMS);
 
     public static final Block CUSTOM_NETHERRACK_ORE_BLOCK = registerBlock(                                              //Register CUSTOM_NETHERRACK_ORE_BLOCK
             "custom_netherrack_ore_block",
@@ -64,7 +62,7 @@ public class ModBlocks {
                     .strength(4f)
                     .requiresTool(),
             UniformIntProvider.create(3,7)),
-            ModItemGroup.DND_MOD_ITEMS);
+            ModItemGroup.CUSTOM_ITEMS);
 
     public static final Block CUSTOM_JUMP_BLOCK = registerBlock(                                                        //Register CUSTOM_JUMP_BLOCK
             "custom_jump_block",                                                                                        //name
@@ -72,7 +70,7 @@ public class ModBlocks {
                     (Material.METAL)                                                                                    //Set Material Type
                     .strength(4f)                                                                                       //Set Block Strength
                     .requiresTool()),                                                                                   //Tells the game if your block requires a tool to break
-            ModItemGroup.DND_MOD_ITEMS);                                                                                //Block Item Group
+            ModItemGroup.CUSTOM_ITEMS);                                                                                //Block Item Group
 
     public static final Block CUSTOM_LAMP_BLOCK = registerBlock(                                                        //Registers CUSTOM_LAMP_BLOCK
             "custom_lamp_block",                                                                                        //name
@@ -81,11 +79,20 @@ public class ModBlocks {
                     .strength(4f)                                                                                       //Set Block Strength
                     .requiresTool()                                                                                     //Tells the game if your block requires a tool to break
                     .luminance(state -> state.get(CustomLampBlock.LIT)?15:0)),                                          //Gets the toggle able state of LIT to set the luminance of the block 15 or 0
-            ModItemGroup.DND_MOD_ITEMS);                                                                                //Block Item Group
+            ModItemGroup.CUSTOM_ITEMS);                                                                                //Block Item Group
 
     public static final Block CUSTOM_CROP_BLOCK = registerBlockWithoutItem(                                             //Registers CUSTOM_CROP_BLOCK
             "custom_crop_block",                                                                                        //name
             new CustomCropBlock(FabricBlockSettings.copy(Blocks.WHEAT)));                                               //new CustomCropBlock made of FabricBlockSettings of Blocks.WHEAT
+
+    public static final Block CUSTOM_TABLE_BLOCK = registerBlock(                                                        //Register CUSTOM_JUMP_BLOCK
+            "custom_table_block",                                                                                        //name
+            new CustomTableBlock(FabricBlockSettings.of                                                                        //new JumpBlock made of FabricBlockSettings of
+                    (Material.METAL)                                                                                    //Set Material Type
+                    .strength(4f)                                                                                       //Set Block Strength
+                    .nonOpaque()                                                                                        //Sets the World to be not see through
+                    .requiresTool()),                                                                                   //Tells the game if your block requires a tool to break
+            ModItemGroup.CUSTOM_ITEMS);                                                                                //Block Item Group
 
 
     private static Block registerBlock(String name, Block block, ItemGroup tab){                                        //Method to Register A typical block that has an item form
