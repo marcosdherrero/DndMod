@@ -25,10 +25,9 @@ public class CustomLampBlock extends Block {
 
     public static final BooleanProperty LIT = BooleanProperty.of("lit");                                         //Creates the BooleanProperty of LIT
 
-    public CustomLampBlock(Settings settings) {                                                                         //Creates the Super Settings for the CustomLampBlock
+    public CustomLampBlock(Settings settings) {                                                                         //Constructor for the CustomLampBlock
         super(settings);
     }
-
     @Override                                                                                                           //Overrides the onUse command
     public ActionResult onUse(BlockState state, World world, BlockPos pos,                                              //Creates the right click toggle functionality
                               PlayerEntity player, Hand hand, BlockHitResult hit) {
@@ -39,9 +38,8 @@ public class CustomLampBlock extends Block {
         return super.onUse(state, world, pos, player, hand, hit);
     }
 
-    //Creates the Tooltip for the Custom Lamp Block
     @Override                                                                                                           //Overrides the appendTooltip command
-    public void appendTooltip(ItemStack stack, @Nullable BlockView world,
+    public void appendTooltip(ItemStack stack, @Nullable BlockView world,                                               //Creates the Tooltip for the Custom Lamp Block
                               List<Text> tooltip, TooltipContext options) {
         if(Screen.hasShiftDown()){                                                                                      //If the player has shift down
             tooltip.add(Text.literal("Right Click To Cycle On and Off These Lamps!")                              //Show tooltip

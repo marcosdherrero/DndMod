@@ -23,8 +23,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class JumpBlock extends Block {                                                                                  //Custom Block Class JumpBlock extends the Block Method
+public class CustomEffectBlock extends Block {                                                                          //Custom Block Class CustomEffectBlock extends the Block Method
 
+    public CustomEffectBlock(Settings settings) {                                                                       //Constructor Method for the CustomEffectBlock
+        super(settings);
+    }
     @Override                                                                                                           //Overrides the onUse Command
     public ActionResult onUse(BlockState state, World world, BlockPos pos,                                              //Action Result of onUse
                               PlayerEntity player, Hand hand, BlockHitResult hit) {
@@ -58,7 +61,5 @@ public class JumpBlock extends Block {                                          
         super.onSteppedOn(world, pos, state, entity);
     }
 
-    public JumpBlock(Settings settings) {                                                                               //Constructor Method
-        super(settings);
-    }
+
 }

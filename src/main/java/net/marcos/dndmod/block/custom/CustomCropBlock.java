@@ -37,10 +37,7 @@ public class CustomCropBlock extends CropBlock {                                
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(AGE);
     }
-//    @Override
-//    public void onInitializeClient() {
-//        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CUSTOM_CROP_BLOCK, RenderLayer.getCutout());                    //Creates a render Layer to cut out the Custom Crop Block's png
-//    }
+
 }
 
 

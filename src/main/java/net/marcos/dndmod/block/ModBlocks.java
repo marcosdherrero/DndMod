@@ -7,7 +7,7 @@ import net.marcos.dndmod.DnDMod;
 import net.marcos.dndmod.block.custom.CustomCropBlock;
 import net.marcos.dndmod.block.custom.CustomLampBlock;
 import net.marcos.dndmod.block.custom.CustomTableBlock;
-import net.marcos.dndmod.block.custom.JumpBlock;
+import net.marcos.dndmod.block.custom.CustomEffectBlock;
 import net.marcos.dndmod.item.ModItemGroup;
 
 import net.minecraft.block.*;
@@ -66,7 +66,7 @@ public class ModBlocks {
 
     public static final Block CUSTOM_JUMP_BLOCK = registerBlock(                                                        //Register CUSTOM_JUMP_BLOCK
             "custom_jump_block",                                                                                        //name
-            new JumpBlock(FabricBlockSettings.of                                                                        //new JumpBlock made of FabricBlockSettings of
+            new CustomEffectBlock(FabricBlockSettings.of                                                                        //new JumpBlock made of FabricBlockSettings of
                     (Material.METAL)                                                                                    //Set Material Type
                     .strength(4f)                                                                                       //Set Block Strength
                     .requiresTool()),                                                                                   //Tells the game if your block requires a tool to break

@@ -29,15 +29,16 @@ public class ThirstHudOverlay implements HudRenderCallback {
     public void onHudRender(MatrixStack matrixStack, float tickDelta) {
         int x = 0;                                                                                                      //x position
         int y = 0;                                                                                                      //y position
-        int u = 0;                                                                                                      //Left most Position
+        int u = 0;                                                                                                      //Left Most Position
         int v = 0;                                                                                                      //Top Most Position
+        int ThirstBottleLevel;
 
         MinecraftClient client = MinecraftClient.getInstance();                                                         //Gets the Instance of the MinecraftClient that is running for the player
         if(client != null) {                                                                                             //Ensures that the Client Screen is not null
             int width = client.getWindow().getScaledWidth();                                                            //Sets width to Window Scaled Width
             int height = client.getWindow().getScaledHeight();                                                          //Sets height to Window Scaled Height
 
-            x = width / 2;                                                                                                //sets x to the middle of the screen
+            x = width / 2;                                                                                              //sets x to the middle of the screen
             y = height;                                                                                                 //sets y to the height of the screen
 
 
