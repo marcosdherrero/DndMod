@@ -11,13 +11,16 @@ import net.marcos.dndmod.fluid.ModFluids;
 import net.marcos.dndmod.item.ModItems;
 import net.marcos.dndmod.networking.ModMessages;
 import net.marcos.dndmod.painting.ModPaintings;
+import net.marcos.dndmod.recipe.ModRecipes;
 import net.marcos.dndmod.screen.ModScreenHandlers;
 import net.marcos.dndmod.util.ModLootTableModifiers;
+import net.marcos.dndmod.util.ThirstLevelData;
 import net.marcos.dndmod.villager.ModTrades;
 import net.marcos.dndmod.villager.ModVillagers;
 import net.marcos.dndmod.world.feature.ModConfiguredFeatures;
 import net.marcos.dndmod.world.gen.ModOreGeneration;
 
+import net.minecraft.entity.player.PlayerEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,19 +31,21 @@ public class DnDMod implements ModInitializer {																			//Main class D
 
 	@Override																											//Overrides the onInitialize method onInitialize()
 	public void onInitialize() {
-		ModConfiguredFeatures.registerConfigureFeatures();																//registers our ModConfigureFeatures
-		ModItems.registerModItems();																					//register ModItems
-		ModBlocks.registerModBlocks();																					//register ModBlocks
-		ModVillagers.registerVillagers();																				//register ModVillagers
-		ModTrades.registerTrades();																						//register ModTrades
-		ModPaintings.registerPaintings();																				//register ModPaintings
-		ModOreGeneration.generateOres();																				//generate ModOreGeneration
-		ModLootTableModifiers.modifyLootTables();																		//modify ModLookTablesModifiers
-		ModMessages.registerC2SPackets();																				//register ModMessages the Client communicating to the Server
-		ServerTickEvents.START_SERVER_TICK.register(new PlayerTickHandler());											//register a new PlayerTickHandler in the Server Tick Events
-		ModFluids.register();																							//register the custom fluid class
-		ModBlockEntities.registerBlockEntities();
-		ModScreenHandlers.registerAllScreenHandlers();																	//register all the custom Screen Handlers
+		ModConfiguredFeatures.registerConfigureFeatures();																//Register the ModConfigureFeatures
+		ModItems.registerModItems();																					//Register the ModItems
+		ModBlocks.registerModBlocks();																					//Register the ModBlocks
+		ModVillagers.registerVillagers();																				//Register the ModVillagers
+		ModTrades.registerTrades();																						//Register the ModTrades
+		ModPaintings.registerPaintings();																				//Register the ModPaintings
+		ModOreGeneration.generateOres();																				//generate the ModOreGeneration
+		ModLootTableModifiers.modifyLootTables();																		//Modify the ModLookTablesModifiers
+
+		ModMessages.registerC2SPackets();																				//Register ModMessages the Client communicating to the Server
+		ServerTickEvents.START_SERVER_TICK.register(new PlayerTickHandler());											//Register a new PlayerTickHandler in the Server Tick Events
+		ModFluids.register();																							//Register the custom fluids
+		ModBlockEntities.registerBlockEntities();																		//Register the custom Block Entities
+		ModScreenHandlers.registerAllScreenHandlers();	 																//Register all the custom Screen Handlers
+		ModRecipes.registerRecipes();																					//Register all Recipe Registries
 
 		LOGGER.info("Hello Fabric world!");
 	}

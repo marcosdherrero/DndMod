@@ -1,0 +1,11 @@
+{
+  "type": "dndmod:custom_table_block",
+  "ingredients": [
+    {
+      "item": "dndmod:custom_raw_item"
+    }
+  ],
+  "output": {
+    "item": "dndmod:custom_item"
+  }
+}

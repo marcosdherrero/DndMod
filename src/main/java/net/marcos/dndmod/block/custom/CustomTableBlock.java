@@ -93,14 +93,14 @@ public class CustomTableBlock extends BlockWithEntity implements BlockEntityProv
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state){                                               //Method to make our Block into a custom Block Entity
-        return new CustomTableBlockEntity(pos, state);
+        return new CustomTableBlockEntity(pos, state);                                                                  //Returns a New Custom Table Block Entity at that position with that certain state
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T>                                                                 //Method to getTicker and check the type for the CustomTableBlock
         getTicker(World world, BlockState state, BlockEntityType<T> type) {
-            return checkType(type, ModBlockEntities.CUSTOM_TABLE_BLOCK_ENTITY, CustomTableBlockEntity::tick);
+            return checkType(type, ModBlockEntities.CUSTOM_TABLE_BLOCK_ENTITY, CustomTableBlockEntity::tick);           //Will return which CustomBlockEntity Types to check every Tick
     }
 }
 

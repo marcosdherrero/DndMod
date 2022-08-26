@@ -3,21 +3,17 @@ package net.marcos.dndmod.util;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 
-import net.marcos.dndmod.client.ThirstHudOverlay;
 import net.marcos.dndmod.networking.ModMessages;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 
 public class ThirstLevelData {
 
     public static int increaseThirstLevel(IEntityDataSaver player, int drinkUp){                                        //Method to Increase a player's thirst level by drinkUp amount
         NbtCompound nbt = player.getPersistentData();                                                                   //Makes a new NbtCompound nbt variable set to the player.getPersistentData()
         int thirstLevel = nbt.getInt("thirst_level");                                                              //Sets thirstLevel to the player's current thirst level
-        //syncThirst(thirstLevel, (ServerPlayerEntity) player);                                                           //Syncs the player's thirst level with the server
 
         if(thirstLevel + drinkUp >= 100) {                                                                              //if Thirst level is maxed out stay at max level
             thirstLevel = 100;
@@ -32,7 +28,7 @@ public class ThirstLevelData {
     public static int removeThirstLevel(IEntityDataSaver player, int drinkDown){                                        //Method to Decrease a player's thirst level by drinkDown amount
         NbtCompound nbt = player.getPersistentData();                                                                   //Makes a new NbtCompound nbt variable set to the player.getPersistentData()
         int thirstLevel = nbt.getInt("thirst_level");                                                              //Sets thirstLevel to the player's current thirst level
-        //syncThirst(thirstLevel, (ServerPlayerEntity) player);                                                           //Syncs the player's thirst level with the server
+
         if(thirstLevel - drinkDown <= 0) {                                                                              //if Thirst level is at minimum stay at minimum
             thirstLevel = 0;
         }else{                                                                                                          //else subtract drinkDown from thirstLevel

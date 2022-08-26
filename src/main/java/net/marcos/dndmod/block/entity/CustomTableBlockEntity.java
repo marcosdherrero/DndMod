@@ -1,6 +1,6 @@
 package net.marcos.dndmod.block.entity;
 
-import net.marcos.dndmod.item.ModItems;
+import net.marcos.dndmod.recipe.CustomTableBlockRecipe;
 import net.marcos.dndmod.screen.CustomTableBlockScreenHandler;
 
 import net.minecraft.block.BlockState;
@@ -22,6 +22,8 @@ import net.minecraft.world.World;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
+
 public class CustomTableBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
 
     private final DefaultedList<ItemStack> inventory =                                                                  //Creates an Inventory for the Block Entity
@@ -30,6 +32,11 @@ public class CustomTableBlockEntity extends BlockEntity implements NamedScreenHa
     protected final PropertyDelegate propertyDelegate;                                                                  //Creates a Delegate Synchronizes the client and the server
     private int progress = 0;                                                                                           //Creates a progress variable for each CustomTableBlockEntity which will track the crafting time
     private int maxProgress = 72;                                                                                       //Creates a maxProgress variable for each CustomTableBlockEntity
+    private static int craftAmount = 2;                                                                                 //Creates a Static Variable of craftAmount for the CustomTableBlockEntity
+    private static int removeAmount = 2;                                                                                //Creates a Static Variable of craftAmount for the CustomTableBlockEntity
+    private static int slot0 = 0;                                                                                       //Creates a Static Variable of slot0 for the CustomTableBlockEntity
+    private static int recipeSlot = 1;                                                                                  //Creates a Static Variable of recipeSlot for the CustomTableBlockEntity inventory slot where the recipe items will go
+    private static int craftedSlot = 2;                                                                                 //Creates a Static Variable of craftedSlot for the CustomTableBlockEntity inventory slot where the crafted items will go
 
     public CustomTableBlockEntity(BlockPos pos, BlockState state) {                                                     //Constructor for the CustomBlockEntity
         super(ModBlockEntities.CUSTOM_TABLE_BLOCK_ENTITY, pos, state);                                                  //Sends a Super for the BlockEntity of (ModBlockEntities.CUSTOM_TABLE_BLOCK_ENTITY, pos, state)
@@ -44,7 +51,6 @@ public class CustomTableBlockEntity extends BlockEntity implements NamedScreenHa
                         return 0;
                 }
             }
-
             public void set(int index, int value) {                                                                     //Method to set the stored values of the CustomTableBlockEntity for the PropertyDelegate
                 switch (index) {
                     case 0:
@@ -55,7 +61,6 @@ public class CustomTableBlockEntity extends BlockEntity implements NamedScreenHa
                         break;
                 }
             }
-
             public int size() {                                                                                         //Method to get the size of the PropertyDelegate
                 return 2;
             }
@@ -64,12 +69,12 @@ public class CustomTableBlockEntity extends BlockEntity implements NamedScreenHa
 
     @Override
     public DefaultedList<ItemStack> getItems() {                                                                        //Method to get the inventory for the CustomTableBlockEntity
-        return this.inventory;
+        return this.inventory;                                                                                          //Returns a list of this CustomTableBlockEntity's inventory
     }
 
     @Override
     public Text getDisplayName() {                                                                                      //Method to get the name of the CustomTableBlockEntity
-        return Text.literal("Custom Table Block");
+        return Text.literal("Custom Table Block");                                                               //Returns a sting of "Custom Table Block"
     }
 
     @Nullable
@@ -80,19 +85,19 @@ public class CustomTableBlockEntity extends BlockEntity implements NamedScreenHa
 
     @Override
     protected void writeNbt(NbtCompound nbt) {                                                                          //Method to have the BlockEntity write NBT values
-        super.writeNbt(nbt);
-        Inventories.writeNbt(nbt, inventory);
-        nbt.putInt("custom_table_block.progress", progress);
+        super.writeNbt(nbt);                                                                                            //Sends write information to the NBT data on the server
+        Inventories.writeNbt(nbt, inventory);                                                                           //Writes the inventory data on the NBT of the CustomTableBlockEntity
+        nbt.putInt("custom_table_block.progress", progress);                                                            //Writes the progress of the crafting to the nbt
     }
 
     @Override
     public void readNbt(NbtCompound nbt) {                                                                              //Method to have the BlockEntity read NBT values
-        Inventories.readNbt(nbt, inventory);
-        super.readNbt(nbt);
-        progress = nbt.getInt("custom_table_block.progress");
+        Inventories.readNbt(nbt, inventory);                                                                            //Read the inventory of the CustomTableBlockEntity
+        super.readNbt(nbt);                                                                                             //Sends the read information to the NBT
+        progress = nbt.getInt("custom_table_block.progress");                                                      //Progresses the crafting of the item
     }
 
-    public static  void tick(World world, BlockPos blockPos, BlockState state, CustomTableBlockEntity entity) {         //Method for what happens each tick for the CustomTableBlockEntity
+    public static void tick(World world, BlockPos blockPos, BlockState state, CustomTableBlockEntity entity) {          //Method for what happens each tick for the CustomTableBlockEntity
         if(world.isClient()) {return;}                                                                                  //Checks if the world is on the client and just progress null
 
         if(hasRecipe(entity)){                                                                                          //Checks if the CustomTableBlockEntity has the proper recipe in its slot
@@ -108,18 +113,24 @@ public class CustomTableBlockEntity extends BlockEntity implements NamedScreenHa
     }
 
     private void resetProgress() {                                                                                      //Method to reset the progress of the CustomTableBlockEntity's crafting time
-        this.progress =  0;
+        this.progress =  0;                                                                                             //Sets the progress of this CustomTableBlockEntity to 0
     }
 
     private static void craftItem(CustomTableBlockEntity entity) {                                                      //Method to Craft the item of the CustomTableBlockEntity
         SimpleInventory inventory = new SimpleInventory(entity.size());                                                 //Builds the inventory for the blockEntity
         for (int i = 0; i< entity.size(); i++){
             inventory.setStack(i, entity.getStack(i));
-        }                                                                                                               //
+        }
+
+        Optional<CustomTableBlockRecipe> recipe =                                                                       //Creates a new recipe variable that gets the list of recipe items from the list
+                entity.getWorld().getRecipeManager()
+                        .getFirstMatch(CustomTableBlockRecipe.Type.INSTANCE, inventory, entity.getWorld());
 
         if(hasRecipe(entity)){                                                                                          //Checks if the CustomTableBlockEntity has the proper recipe in its slot
-            entity.removeStack(1,1);                                                                        //Removes one item from the crafting slot
-            entity.setStack(2, new ItemStack(ModItems.CUSTOM_ITEM, entity.getStack(2).getCount()+1));  //Adds one item in the crafted slot
+            entity.removeStack(recipeSlot, removeAmount);                                                               //Removes the removeItem amount from the recipeSlot when crafted
+
+            entity.setStack(craftedSlot, new ItemStack(recipe.get().getOutput().getItem(),                              //Adds craftAmount of items in the crafted slot
+                    entity.getStack(craftedSlot).getCount() + craftAmount));
 
             entity.resetProgress();                                                                                     //Resets the progress of the Crafting time
         }
@@ -129,20 +140,24 @@ public class CustomTableBlockEntity extends BlockEntity implements NamedScreenHa
         SimpleInventory inventory = new SimpleInventory(entity.size());                                                 //Builds the inventory for the blockEntity
         for (int i = 0; i< entity.size(); i++){
             inventory.setStack(i, entity.getStack(i));
-        }                                                                                                               //
+        }
 
-        boolean hasCustomRawItemInFirstSlot = entity.getStack(1).getItem() == ModItems.CUSTOM_RAW_ITEM;            //Creates a new boolean variable that checks that the item is CustomRawItem
+        Optional<CustomTableBlockRecipe> match =
+                entity.getWorld().getRecipeManager()
+                .getFirstMatch(CustomTableBlockRecipe.Type.INSTANCE, inventory, entity.getWorld());
 
-        return hasCustomRawItemInFirstSlot &&                                                                           //Returns True if crafting item matches +
+        return match.isPresent() &&                                                                                     //Returns True if crafting item matches +
                canInsertAmountIntoOutputSlot(inventory) &&                                                              //Method to check if the Crafted Slot has space available +
-               canInsertItemIntoOutputSlot(inventory, ModItems.CUSTOM_ITEM);                                            //Method to check if the Crafted Slot item is the correct item
+               canInsertItemIntoOutputSlot(inventory, match.get().getOutput().getItem());                               //Method to check if the Crafted Slot item is the correct item
     }
 
     private static boolean canInsertItemIntoOutputSlot(SimpleInventory inventory, Item output) {                        //Method to check if the Crafted Slot item is the correct item
-        return inventory.getStack(2).getItem() == output || inventory.getStack (2).isEmpty();
+        return inventory.getStack(craftedSlot).getItem() == output || inventory.getStack (craftedSlot).isEmpty();
     }
 
     private static boolean canInsertAmountIntoOutputSlot(SimpleInventory inventory) {                                   //Method to check if the Crafted Slot has space available
-        return inventory.getStack(2).getMaxCount() > inventory.getStack(2).getCount();
+        return                                                                                                          //Return True if
+                inventory.getStack(craftedSlot).getMaxCount() >                                                         //If the MaxStack of the item in the crafted slot is greater than
+                inventory.getStack(craftedSlot).getCount()+craftAmount;                                                 //Stack in the crafted slot + the craftAmount
     }
 }
