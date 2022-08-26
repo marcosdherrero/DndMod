@@ -13,11 +13,13 @@ import net.marcos.dndmod.networking.ModMessages;
 import net.marcos.dndmod.painting.ModPaintings;
 import net.marcos.dndmod.screen.ModScreenHandlers;
 import net.marcos.dndmod.util.ModLootTableModifiers;
+import net.marcos.dndmod.util.ThirstLevelData;
 import net.marcos.dndmod.villager.ModTrades;
 import net.marcos.dndmod.villager.ModVillagers;
 import net.marcos.dndmod.world.feature.ModConfiguredFeatures;
 import net.marcos.dndmod.world.gen.ModOreGeneration;
 
+import net.minecraft.entity.player.PlayerEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +38,7 @@ public class DnDMod implements ModInitializer {																			//Main class D
 		ModPaintings.registerPaintings();																				//register ModPaintings
 		ModOreGeneration.generateOres();																				//generate ModOreGeneration
 		ModLootTableModifiers.modifyLootTables();																		//modify ModLookTablesModifiers
+
 		ModMessages.registerC2SPackets();																				//register ModMessages the Client communicating to the Server
 		ServerTickEvents.START_SERVER_TICK.register(new PlayerTickHandler());											//register a new PlayerTickHandler in the Server Tick Events
 		ModFluids.register();																							//register the custom fluid class

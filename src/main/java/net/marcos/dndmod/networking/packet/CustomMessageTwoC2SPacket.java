@@ -29,8 +29,8 @@ public class CustomMessageTwoC2SPacket {
             PacketSender responseSender)
     {                                                                                                                   //Everything Here Happens ONLY on the Server
        ServerWorld world = player.getWorld();                                                                           //Creates a ServerWorld variable called world which is our player.getWorld();
-       //int playerThirstLevel = ((IEntityDataSaver) player).getPersistentData().getInt("thirst_level");                //Creates an Int Variable player Thirst Level
-       if(isWaterAroundThem(player, world, 2)){
+       int waterAwayDistance = 5;                                                                                       //Sets the distance the game will check the player is away from water
+       if(isWaterAroundThem(player, world, waterAwayDistance)){                                                         //Checks if water is around the player at a certain distance
         world.playSound(                                                                                                //playSound(@Nullable PlayerEntity player, BlockPos pos, SoundEvent sound, SoundCategory category, float volume, float pitch)
                    null,                                                                                                //Player Entity
                    player.getBlockPos(),                                                                                //Position that the sound will come from
@@ -39,11 +39,12 @@ public class CustomMessageTwoC2SPacket {
                    .5F,                                                                                                 //Volume
                    world.random.nextFloat()*0.1F+0.9F);                                                                 //Pitch
 
+           int drinkUp = 10;                                                                                            //Sets the amount the player will gain when drinking to their thirst bar
            ThirstLevelData.increaseThirstLevel(((IEntityDataSaver) player), 10);                               //Refill Player Thirst by 10
 
            player.sendMessage(Text.literal("Drinking Water! Thirst Level is: " +                                 //Tell Player They are Successfully drinking and what their current thirst level is
                            ((IEntityDataSaver) player).getPersistentData().getInt("thirst_level"))
-                   .fillStyle(Style.EMPTY.withColor(Formatting.AQUA)),true);                                    //Formats the info to Aqua
+                   .fillStyle(Style.EMPTY.withColor(Formatting.AQUA)),true);                                    //Formats the info to Aqua and is on the overlay
 
        }else{
 
@@ -59,7 +60,7 @@ public class CustomMessageTwoC2SPacket {
 
            player.sendMessage(Text.literal("No Water Around! Thirst Level is: "+                                //Sends Player Message that they failed to drink water and what their current thirst level is
                            ((IEntityDataSaver) player).getPersistentData().getInt("thirst_level"))
-                   .fillStyle(Style.EMPTY.withColor(Formatting.RED)),true);                                     //Formats the info to red
+                   .fillStyle(Style.EMPTY.withColor(Formatting.RED)),true);                                     //Formats the info to red and is on the overlay
 
        }
     }

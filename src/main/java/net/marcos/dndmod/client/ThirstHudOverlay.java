@@ -1,20 +1,13 @@
 package net.marcos.dndmod.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-
 import net.marcos.dndmod.DnDMod;
 import net.marcos.dndmod.util.IEntityDataSaver;
-
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.util.Window;
 import net.minecraft.client.util.math.MatrixStack;
-
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class ThirstHudOverlay implements HudRenderCallback {
@@ -102,5 +95,9 @@ public class ThirstHudOverlay implements HudRenderCallback {
     //mapRange(0,9,1,textureHeight, playerThirstLevelRemTen)
     public static int mapRange(double a1, double a2, double b1, double b2, double s){
         return (int) (b1 + ((s - a1)*(b2 - b1))/(a2 - a1));
+    }
+
+    public void renderEmptyBottle(MatrixStack matrixStack){
+
     }
 }

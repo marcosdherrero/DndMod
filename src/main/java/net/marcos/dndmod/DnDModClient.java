@@ -9,14 +9,18 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.marcos.dndmod.block.ModBlocks;
 
 import net.marcos.dndmod.client.ThirstHudOverlay;
+import net.marcos.dndmod.client.ThirstHudOverlayUpdate;
 import net.marcos.dndmod.event.KeyInputHandler;
 import net.marcos.dndmod.fluid.ModFluids;
 import net.marcos.dndmod.networking.ModMessages;
 
 import net.marcos.dndmod.screen.CustomTableBlockScreen;
 import net.marcos.dndmod.screen.ModScreenHandlers;
+import net.marcos.dndmod.util.IEntityDataSaver;
+import net.marcos.dndmod.util.ThirstLevelData;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 
 public class DnDModClient implements ClientModInitializer {
@@ -28,7 +32,7 @@ public class DnDModClient implements ClientModInitializer {
         KeyInputHandler.register();                                                                                     //register KeyInputHandler
         ModMessages.registerS2CPackets();																				//register ModMessages the Server communicating to the Client
 
-        HudRenderCallback.EVENT.register(new ThirstHudOverlay());                                                       //register a new ThirstHudOverlay in HudRenderCallback
+        HudRenderCallback.EVENT.register(new ThirstHudOverlayUpdate());                                                 //register a new ThirstHudOverlay in HudRenderCallback
 
         FluidRenderHandlerRegistry.INSTANCE.register(
                 ModFluids.STILL_CUSTOM_FLUID,
