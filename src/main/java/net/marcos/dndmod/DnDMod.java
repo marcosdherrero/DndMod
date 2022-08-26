@@ -37,7 +37,7 @@ public class DnDMod implements ModInitializer {																			//Main class D
 		ModVillagers.registerVillagers();																				//Register the ModVillagers
 		ModTrades.registerTrades();																						//Register the ModTrades
 		ModPaintings.registerPaintings();																				//Register the ModPaintings
-		ModOreGeneration.generateOres();																				//generate the ModOreGeneration
+		ModOreGeneration.generateOres();																				//Generate the ModOreGeneration
 		ModLootTableModifiers.modifyLootTables();																		//Modify the ModLookTablesModifiers
 
 		ModMessages.registerC2SPackets();																				//Register ModMessages the Client communicating to the Server

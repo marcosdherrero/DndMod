@@ -142,9 +142,9 @@ public class CustomTableBlockEntity extends BlockEntity implements NamedScreenHa
             inventory.setStack(i, entity.getStack(i));
         }
 
-        Optional<CustomTableBlockRecipe> match =
-                entity.getWorld().getRecipeManager()
-                .getFirstMatch(CustomTableBlockRecipe.Type.INSTANCE, inventory, entity.getWorld());
+        Optional<CustomTableBlockRecipe> match =                                                                        //Creates an Optional list of CustomTableBlockRecipe called match
+                entity.getWorld().getRecipeManager()                                                                    //gets the world
+                .getFirstMatch(CustomTableBlockRecipe.Type.INSTANCE, inventory, entity.getWorld());                     //Finds the first match from the json list in if it matches the inventory slot in the CustomTableBlockEntity
 
         return match.isPresent() &&                                                                                     //Returns True if crafting item matches +
                canInsertAmountIntoOutputSlot(inventory) &&                                                              //Method to check if the Crafted Slot has space available +
