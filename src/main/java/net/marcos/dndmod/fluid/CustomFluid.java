@@ -15,7 +15,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 
-public abstract class CustomFluid extends FlowableFluid {
+public abstract class CustomFluid extends FlowableFluid {                                                               //Custom Fluid Class
 
     @Override
     protected boolean isInfinite() {                                                                                    //Method to check if Custom Fluid will create a new Source Block
@@ -39,13 +39,13 @@ public abstract class CustomFluid extends FlowableFluid {
     }
 
     @Override
-    public boolean matchesType(Fluid fluid) {
-        return fluid == getStill() || fluid == getFlowing();
+    public boolean matchesType(Fluid fluid) {                                                                           //Boolean Method to Check if the fluid types match
+        return fluid == getStill() || fluid == getFlowing();                                                            //Returns if the fluid is both moving or still when checking
     }
 
     @Override
     public int getLevel(FluidState state) {                                                                             //Method to get the level of the Custom Fluid
-        return 0;
+        return 0;                                                                                                       //
     }
 
     @Override
@@ -55,7 +55,7 @@ public abstract class CustomFluid extends FlowableFluid {
 
     @Override
     protected float getBlastResistance() {                                                                              //Method to get the Blast Resistance of the Custom Fluid
-        return 100f;                                                                                                  //Minecraft's water is set to 100.0f
+        return 100f;                                                                                                    //Minecraft's water is set to 100.0f
     }
 
     @Override
@@ -65,57 +65,57 @@ public abstract class CustomFluid extends FlowableFluid {
     }
 
     @Override
-    public Fluid getStill() {
-        return ModFluids.STILL_CUSTOM_FLUID;
+    public Fluid getStill() {                                                                                           //Method to get the fluid that is still
+        return ModFluids.STILL_CUSTOM_FLUID;                                                                            //Returns our Custom Fluid
     }
 
     @Override
-    public Fluid getFlowing() {
-        return ModFluids.FLOWING_CUSTOM_FLUID;
+    public Fluid getFlowing() {                                                                                         //Method to get a fluid that is flowing
+        return ModFluids.FLOWING_CUSTOM_FLUID;                                                                          //Returns our Custom Fluid
     }
 
     @Override
-    public Item getBucketItem() {
-        return ModFluids.CUSTOM_FLUID_BUCKET;
+    public Item getBucketItem() {                                                                                       //Method to get the bucket item for this fluidBlock
+        return ModFluids.CUSTOM_FLUID_BUCKET;                                                                           //Returns our Custom Fluid Bucket
     }
 
     @Override
-    protected BlockState toBlockState(FluidState state) {
-        return ModFluids.CUSTOM_FLUID_BLOCK.getDefaultState().with(Properties.LEVEL_15, getBlockStateLevel(state));
+    protected BlockState toBlockState(FluidState state) {                                                               //Method to input the defaultedBlockState of the fluid
+        return ModFluids.CUSTOM_FLUID_BLOCK.getDefaultState().with(Properties.LEVEL_15, getBlockStateLevel(state));     //This sets the default height range of 0-15
     }
 
     @Override
-    public boolean isStill(FluidState state) {
-        return false;
+    public boolean isStill(FluidState state) {                                                                          //Boolean Method to check if the fluid is sill or not
+        return false;                                                                                                   //This fluid is flowing
     }
 
-    public static class Flowing extends CustomFluid{
+    public static class Flowing extends CustomFluid{                                                                    //Flowing Class
         @Override
-        protected void appendProperties(StateManager.Builder<Fluid, FluidState> builder) {
-            super.appendProperties(builder);
-            builder.add(LEVEL);
+        protected void appendProperties(StateManager.Builder<Fluid, FluidState> builder) {                              //Method to append the properties of the Fluid state
+            super.appendProperties(builder);                                                                            //Sends out for the builder
+            builder.add(LEVEL);                                                                                         //adds the LEVEL to the fluidState
         }
 
         @Override
-        public int getLevel(FluidState state) {
-            return state.get(LEVEL);
+        public int getLevel(FluidState state) {                                                                         //int Method to get the level of the fluid
+            return state.get(LEVEL);                                                                                    //Returns the LEVEL of the fluid at that pos
         }
 
         @Override
-        public boolean isStill(FluidState state) {
-            return false;
+        public boolean isStill(FluidState state) {                                                                      //Boolean Method to check if the Fluid is still
+            return false;                                                                                               //This fluid is flowing
         }
     }
 
-    public static class Still extends CustomFluid{
+    public static class Still extends CustomFluid{                                                                      //Still Class
         @Override
-        public int getLevel(FluidState state) {
-            return 8;
+        public int getLevel(FluidState state) {                                                                         //Method to get the level of the fluid
+            return 8;                                                                                                   //This fluid will flow out 8 blocks
         }
 
         @Override
-        public boolean isStill(FluidState state) {
-            return true;
+        public boolean isStill(FluidState state) {                                                                      //Method to check if the fluid is still
+            return true;                                                                                                //This fluid is not flowing
         }
     }
 

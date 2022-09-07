@@ -1,9 +1,12 @@
 package net.marcos.dndmod.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+
 import net.marcos.dndmod.DnDMod;
 import net.marcos.dndmod.util.IEntityDataSaver;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.render.GameRenderer;
@@ -12,92 +15,70 @@ import net.minecraft.util.Identifier;
 
 public class ThirstHudOverlay implements HudRenderCallback {
 
-   public static final Identifier FILLED_THIRST_BOTTLE =                                                                //Creates a new Identifier for the FILLED_THIRST_BOTTLE texture
-           new Identifier(DnDMod.MOD_ID, "textures/thirst/filled_bottle.png");
-   public static final Identifier EMPTY_THIRST_BOTTLE =                                                                 //Creates a new Identifier for the EMPTY_THIRST_BOTTLE texture
-           new Identifier(DnDMod.MOD_ID, "textures/thirst/empty_bottle.png");
+    public final Identifier FILLED_BOTTLE =                                                                             //Creates a new Identifier for the Filled Bottle
+            new Identifier(DnDMod.MOD_ID, "textures/thirst/filled_bottle.png");
+    public final Identifier EMPTY_BOTTLE =                                                                              //Creates a new Identifier for the Empty Bottle
+            new Identifier(DnDMod.MOD_ID, "textures/thirst/empty_bottle.png");
+
+    public int x = 0;                                                                                                   //Variable for the Starting x Drawn Position
+    public int y = 0;                                                                                                   //Variable for the Starting y Drawn Position
+    public int u = 0;                                                                                                   //Variable for the Starting u Drawn Position (Where the drawing will start)
+    public int v = 0;                                                                                                   //Variable for the Starting v Drawn Position (Where the drawing will start)
+    public int maxBottleHeight = 12;                                                                                    //Variable for the Max Bottle Height
+    public int maxBottleWidth = 12;                                                                                     //Variable for the Max Bottle Width
+    public int bottleHeight;                                                                                            //Variable for the current Bottle Height
+    public int thirstLevel;                                                                                             //Variable for the current Thirst Level
+    public int TensPlace;                                                                                               //Variable for the current Tens Place
+    public int onesPlace;                                                                                               //Variable for the current Ones Place
 
 
-    @Override                                                                                                           //Overrides the onHudRender Method
-    public void onHudRender(MatrixStack matrixStack, float tickDelta) {
-        int x = 0;                                                                                                      //x position
-        int y = 0;                                                                                                      //y position
-        int u = 0;                                                                                                      //Left Most Position
-        int v = 0;                                                                                                      //Top Most Position
-        int ThirstBottleLevel;
+    @Override
+    public void onHudRender(MatrixStack matrixStack, float tickDelta) {                                                 //Method called when the Hud is Rendered
 
-        MinecraftClient client = MinecraftClient.getInstance();                                                         //Gets the Instance of the MinecraftClient that is running for the player
-        if(client != null) {                                                                                             //Ensures that the Client Screen is not null
-            int width = client.getWindow().getScaledWidth();                                                            //Sets width to Window Scaled Width
-            int height = client.getWindow().getScaledHeight();                                                          //Sets height to Window Scaled Height
+        int width = MinecraftClient.getInstance().getWindow().getScaledWidth();                                         //Variable set to the width of the Client Screen
+        int height = MinecraftClient.getInstance().getWindow().getScaledHeight();                                       //Variable set to the height of the Client Screen
 
-            x = width / 2;                                                                                              //sets x to the middle of the screen
-            y = height;                                                                                                 //sets y to the height of the screen
+        thirstLevel = ((IEntityDataSaver) MinecraftClient.getInstance()                                                 //Set's the thirstLevel variable to the player's thirst level
+                .player).getPersistentData().getInt("thirst_level");
+        TensPlace = thirstLevel/10;
+        bottleHeight = onesPlace = thirstLevel%10;
 
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);                                                     //Sets the PositionTexShader to Draw Texture Shaders
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);                                    //Sets Shader Color to 1.0F
+        MinecraftClient client = MinecraftClient.getInstance();                                                         //Creates a MinecraftClient.getInstance() variable called client
 
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);                                                     //Sets the PositionTexShader to
-            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-
-            int playerThirstLevel = ((IEntityDataSaver) MinecraftClient.getInstance().player)                               //Creates an Int Variable player Thirst Level
-                    .getPersistentData().getInt("thirst_level");
-            double playerThirstLevelDivTen = playerThirstLevel / 10;
-            int playerThirstLevelTensPlace = (int) playerThirstLevelDivTen;
-            double playerThirstLevelRemTen = playerThirstLevel % 10;
-            int playerThirstLevelOnesPlace = (int) playerThirstLevelRemTen;
-
-            for (int i = 0; i < 10; i++) {                                                                              //Prints out 10 Water Bottles
-                x = width/2 - 94 +(i*9);
-                y = height - 35;
-                int textureSquareWidth = 12;
-                int textureSquareHeight = 12;
-                int regionWidth = 12;
-                int regionHeight = 12;
-                int textureWidth = 12;
-                int textureHeight = 12;
-                int mapRange = mapRange(9,0,textureHeight,0, playerThirstLevelRemTen);
-                int reversedMap = mapRange(textureHeight,0,0,textureHeight-1,mapRange);
-
-
-                if(playerThirstLevel == 0){
-                    RenderSystem.setShaderTexture(0, EMPTY_THIRST_BOTTLE);                                       //Selects EMPTY_THIRST_BOTTLE texture
-                    DrawableHelper.drawTexture(matrixStack, x , y,u, v, textureSquareWidth, textureSquareHeight, textureWidth, textureHeight);
-                }else if (playerThirstLevelTensPlace > (i)) { //WaterBottle is full Draw it at i                              //Selects if bottle is filled if thirst is greater than its position
-                    RenderSystem.setShaderTexture(0, FILLED_THIRST_BOTTLE);                                      //Selects FILLED_THIRST_BOTTLE texture
-                    DrawableHelper.drawTexture(                                                                         //Draws the Texture
-                            matrixStack,
-                            x , y , u, v,
-                            textureSquareWidth,
-                            textureSquareHeight,
-                            textureWidth,
-                            textureHeight);
-                }else if(playerThirstLevelTensPlace == i) {                                                             //If the potion bottle relates to that tenth of the count
-
-                    //DrawableHelper.enableScissor(x,y,x+textureWidth,y+reversedMap);
-                    RenderSystem.setShaderTexture(0, EMPTY_THIRST_BOTTLE);                                      //Selects EMPTY_THIRST_BOTTLE texture
-                    DrawableHelper.drawTexture(matrixStack, x , y ,u, v, textureSquareWidth,                            //Draws the Full Empty Bottle
-                            textureSquareHeight, textureWidth, textureHeight);
-
-                    DrawableHelper.enableScissor(x,y+reversedMap,x+textureWidth,y+textureHeight);           //Enables a Scissor to select what area of the bottle is filled
-                    RenderSystem.setShaderTexture(0, FILLED_THIRST_BOTTLE);                                     //Selects FILLED_THIRST_BOTTLE texture
-                    DrawableHelper.drawTexture(matrixStack, x , y ,u, v, textureSquareWidth,
-                            textureSquareHeight, textureWidth, textureHeight);
-                    RenderSystem.disableScissor();
-
-                }else{
-                    RenderSystem.setShaderTexture(0, EMPTY_THIRST_BOTTLE);                                       //Selects EMPTY_THIRST_BOTTLE texture
-                    DrawableHelper.drawTexture(matrixStack, x , y,u, v, textureSquareWidth,
-                            textureSquareHeight, textureWidth, textureHeight);
+        if (client != null) {                                                                                           //Checks if the client is live
+            for (int i = 0; i < 10; i++) {                                                                              //Loops through the ten bottles for the thirst Levels
+                x = width / 2 - 94 + (i * 9);                                                                           //Sets the x dimension for the thirst bottle
+                y = height - 45;                                                                                        //Sets the y position for the thirst bottle to br drawn at
+                v = 0;                                                                                                  //Sets the v to be drawn
+                RenderSystem.setShaderTexture(0, EMPTY_BOTTLE);                                                 //Sets the texture to the EMPTY_BOTTLE texture
+                DrawableHelper.drawTexture(matrixStack, x, y, u, v,                                                     //Draws the Empty Bottle Texture
+                        maxBottleWidth, maxBottleHeight, maxBottleWidth, maxBottleHeight);
+                if (i < TensPlace) {                                                                                    //Checks that the bottle texture is filled
+                    RenderSystem.setShaderTexture(0, FILLED_BOTTLE);                                            //Sets the texture to the FILLED_BOTTLE texture
+                    DrawableHelper.drawTexture(matrixStack, x, y, u, v,                                                 //Draws the Full Bottle Texture Over the Drawn Empty Bottle
+                            maxBottleWidth, maxBottleHeight, maxBottleWidth, maxBottleHeight);
+                } else if(i == TensPlace){                                                                              //Checks if the Bottle is partially full
+                    v = maxBottleHeight-onesPlace;                                                                      //Sets the v
+                    y += v;                                                                                             //Sets the y Position
+                    bottleHeight = onesPlace;                                                                           //Sets the BottleHeight
+                    RenderSystem.setShaderTexture(0, FILLED_BOTTLE);
+                    DrawableHelper.drawTexture(
+                            matrixStack,                                                                                //Picks the Matrix Stack from the selected texture
+                            x,                                                                                          //X position that the texture will be drawn in
+                            y,                                                                                          //Y position that the texture will be drawn in
+                            u,                                                                                          //X position that the texture will begin to be cut from the original texture
+                            v,                                                                                          //Y position that the texture will begin to be cut from the original texture
+                            maxBottleWidth,                                                                             //Texture Width To be drawn from the U value
+                            bottleHeight,                                                                               //Texture Height To be drawn from V value
+                            maxBottleWidth,                                                                             //Texture Width In total
+                            maxBottleHeight);                                                                           //Texture Height In Total
                 }
             }
         }
     }
-
-    //mapRange(0,9,1,textureHeight, playerThirstLevelRemTen)
-    public static int mapRange(double a1, double a2, double b1, double b2, double s){
-        return (int) (b1 + ((s - a1)*(b2 - b1))/(a2 - a1));
-    }
-
-    public void renderEmptyBottle(MatrixStack matrixStack){
-
-    }
+    public int mapRangeResultOfsInRangeOfaTob(double a1, double a2, double b1, double b2, double s){                    //Method to get a value from one range to another range
+                return (int) (b1 + ((s - a1)*(b2 - b1))/(a2 - a1));                                                     //Returns an integer t of range b from a set of value s of range a
+    }                                                                                                                   //This was what I was using originally to map the bottle heights
 }

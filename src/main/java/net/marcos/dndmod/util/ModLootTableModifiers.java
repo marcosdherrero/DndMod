@@ -32,6 +32,8 @@ public class ModLootTableModifiers {
     //Method to Modify the Loot Tables
     public static void modifyLootTables(){                                                                              //Method to Modify Loot Tables modifyLootTables()
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
+
+            //Altering a block drop
             if(GRASS_BLOCK_ID.equals(id)){                                                                              //Checks if ID Loot Table is called
                 LootPool.Builder poolBuilder = LootPool.builder()                                                       //Creates a new LootPool.Builder
                         .rolls(ConstantLootNumberProvider.create(1))                                                    //Number of rolls when Item is called
@@ -41,6 +43,8 @@ public class ModLootTableModifiers {
                                 .build());                                                                              //Builds this LootPool.Builder poolBuilder
                 tableBuilder.pool(poolBuilder.build());                                                                 //Applies poolBuilder to tableBuilder
             }
+
+            //Altering a Chest from a Spawn
             if(IGLOO_STRUCTURE_CHEST_ID.equals(id)){                                                                    //Checks if ID Loot table is called
                 LootPool.Builder poolBuilder = LootPool.builder()                                                       //Creates a new LootPool.Builder
                         .rolls(ConstantLootNumberProvider.create(1))                                                    //Number of rolls when Item is called
@@ -50,6 +54,8 @@ public class ModLootTableModifiers {
                                 .build());                                                                              //Builds this LootPool.Builder poolBuilder
                 tableBuilder.pool(poolBuilder.build());                                                                 //Applies poolBuilder to tableBuilder
             }
+
+            //Altering an entity drop
             if(CREEPER_ID.equals(id)){                                                                                  //Checks if ID Loot table is called
                 LootPool.Builder poolBuilder = LootPool.builder()                                                       //Creates a new LootPool.Builder called poolBuilder
                         .rolls(ConstantLootNumberProvider.create(1))                                                    //Number of rolls when Item is called

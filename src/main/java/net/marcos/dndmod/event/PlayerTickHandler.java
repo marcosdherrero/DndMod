@@ -1,10 +1,10 @@
 package net.marcos.dndmod.event;
 
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerBlockEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+
 import net.marcos.dndmod.util.IEntityDataSaver;
 import net.marcos.dndmod.util.ThirstLevelData;
-import net.minecraft.block.entity.BlockEntityType;
+
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Style;
@@ -18,7 +18,7 @@ public class PlayerTickHandler implements ServerTickEvents.StartTick{
     public void onStartTick(MinecraftServer server) {                                                                   //Checks the server for players
         for(ServerPlayerEntity player : server.getPlayerManager().getPlayerList()){                                     //Goes through the list of players on the server
             if(new Random().nextFloat()<= 0.005f){                                                                      //Gets a random float and if it is less than a certain number the player will lose thirst
-                removeThirstOnTick(player);
+                removeThirstOnTick(player);                                                                             //Method to remove the thirst of a player
             }
         }
     }

@@ -27,33 +27,33 @@ public class CustomTableBlock extends BlockWithEntity implements BlockEntityProv
     Creating Our Custom Block and its placement in the world
      */
 
-    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
-    private static VoxelShape SHAPE =
+    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;                                        //Creates a DirectionProperty called FACING which implements the Horizontal Facing Property
+    private static VoxelShape SHAPE =                                                                                   //Creates the voxel Shape for the BlockEntity
             Block.createCuboidShape(0, 0, 0   ,16,9,16);
 
     public CustomTableBlock(Settings settings) {                                                                        //Creates te CustomTableBlock with specific settings as a parameter
-        super(settings);
+        super(settings);                                                                                                //Constructor
     }
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {          //Method to outline the shape of the CustomTableBlock
-        return SHAPE;
+        return SHAPE;                                                                                                   //Using the created shape to define its shape
     }
 
     @Nullable
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {                                                     //Method to get the front of the CustomTableBlock
-        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
+        return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());                                //Tells the block to be facing the opposite direction of the player
     }
 
     @Override
     public BlockState rotate(BlockState state, BlockRotation rotation) {                                                //Method to rotate the CustomTableBlock to the correct facing position
-        return state.with(FACING, rotation.rotate((state.get(FACING))));
+        return state.with(FACING, rotation.rotate((state.get(FACING))));                                                //Returns the rotation of the block
     }
 
     @Override
     public BlockState mirror(BlockState state, BlockMirror mirror) {                                                    //Method to mirror the CustomTableBlock to the correct facing position
-        return state.rotate(mirror.getRotation(state.get(FACING)));
+        return state.rotate(mirror.getRotation(state.get(FACING)));                                                     //Returns a mirror of the block
     }
 
     @Override
@@ -68,6 +68,7 @@ public class CustomTableBlock extends BlockWithEntity implements BlockEntityProv
         return BlockRenderType.MODEL;                                                                                   //Ensures that the game will render the entity as a block
     }
 
+    @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved){       //Method to convert the block into a BlockEntity and break open
         if(state.getBlock()!=newState.getBlock()){                                                                      //its contents when broken
             BlockEntity blockEntity = world.getBlockEntity(pos);                                                        //creates a BlockEntity Variable blockEntity referencing the BlockEntity at that position
@@ -83,7 +84,8 @@ public class CustomTableBlock extends BlockWithEntity implements BlockEntityProv
     public ActionResult onUse(BlockState state, World world, BlockPos pos,                                              //Checks if the player has used on the blockEntity
                               PlayerEntity player, Hand hand, BlockHitResult hit) {
         if(!world.isClient){                                                                                            //Checks if the player is on the client
-            NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+            NamedScreenHandlerFactory screenHandlerFactory = (CustomTableBlockEntity) world.getBlockEntity(pos);
+
             if(screenHandlerFactory != null){                                                                           //If the ScreenHandler is not open
                 player.openHandledScreen(screenHandlerFactory);                                                         //Open the Screen Handler
                 }

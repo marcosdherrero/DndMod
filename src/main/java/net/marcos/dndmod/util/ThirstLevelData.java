@@ -9,7 +9,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-public class ThirstLevelData {
+public class ThirstLevelData {                                                                                          //Custom Util Class to get the thirst Level of the player
 
     public static int increaseThirstLevel(IEntityDataSaver player, int drinkUp){                                        //Method to Increase a player's thirst level by drinkUp amount
         NbtCompound nbt = player.getPersistentData();                                                                   //Makes a new NbtCompound nbt variable set to the player.getPersistentData()

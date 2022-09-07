@@ -5,22 +5,21 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.marcos.dndmod.block.ModBlocks;
 
+import net.marcos.dndmod.block.entity.ModBlockEntities;
+import net.marcos.dndmod.block.entity.client.CustomTableBlockEntityRenderer;
 import net.marcos.dndmod.client.ThirstHudOverlay;
-import net.marcos.dndmod.client.ThirstHudOverlayUpdate;
 import net.marcos.dndmod.event.KeyInputHandler;
 import net.marcos.dndmod.fluid.ModFluids;
 import net.marcos.dndmod.networking.ModMessages;
 
 import net.marcos.dndmod.screen.CustomTableBlockScreen;
 import net.marcos.dndmod.screen.ModScreenHandlers;
-import net.marcos.dndmod.util.IEntityDataSaver;
-import net.marcos.dndmod.util.ThirstLevelData;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 
 public class DnDModClient implements ClientModInitializer {
@@ -29,10 +28,10 @@ public class DnDModClient implements ClientModInitializer {
     public void onInitializeClient() {                                                                                  //Overrides the On Initialized Client
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CUSTOM_CROP_BLOCK, RenderLayer.getCutout());                    //Creates a render Layer to cut out the Custom Crop Block's png
 
-        KeyInputHandler.register();                                                                                     //register KeyInputHandler
-        ModMessages.registerS2CPackets();																				//register ModMessages the Server communicating to the Client
+        KeyInputHandler.register();                                                                                     //Register KeyInputHandler
+        ModMessages.registerS2CPackets();																				//Register ModMessages the Server communicating to the Client
 
-        HudRenderCallback.EVENT.register(new ThirstHudOverlayUpdate());                                                 //register a new ThirstHudOverlay in HudRenderCallback
+        HudRenderCallback.EVENT.register(new ThirstHudOverlay());                                                       //Register a new ThirstHudOverlay in HudRenderCallback
 
         FluidRenderHandlerRegistry.INSTANCE.register(
                 ModFluids.STILL_CUSTOM_FLUID,
@@ -48,6 +47,9 @@ public class DnDModClient implements ClientModInitializer {
                 ModFluids.STILL_CUSTOM_FLUID,
                 ModFluids.FLOWING_CUSTOM_FLUID);
 
-        HandledScreens.register(ModScreenHandlers.CUSTOM_TABLE_BLOCK_SCREEN_HANDLER, CustomTableBlockScreen::new);
+        HandledScreens.register(ModScreenHandlers.CUSTOM_TABLE_BLOCK_SCREEN_HANDLER, CustomTableBlockScreen::new);      //Registers the Custom Table Block Screen Handler
+
+        BlockEntityRendererRegistry.register(ModBlockEntities.CUSTOM_TABLE_BLOCK_ENTITY,                                //Registers the Custom Table Block Entity
+                CustomTableBlockEntityRenderer::new);
     }
 }

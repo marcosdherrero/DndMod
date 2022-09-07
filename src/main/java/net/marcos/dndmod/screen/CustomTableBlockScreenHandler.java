@@ -1,10 +1,13 @@
 package net.marcos.dndmod.screen;
 
+import net.marcos.dndmod.block.entity.CustomTableBlockEntity;
+import net.marcos.dndmod.util.FluidStack;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -14,32 +17,39 @@ public class CustomTableBlockScreenHandler  extends ScreenHandler {             
 
     private final Inventory inventory;                                                                                  //Creates and Inventory variable for this CustomTableBlockScreenHandler
     private final PropertyDelegate propertyDelegate;                                                                    //Creates a PropertyDelegate variable for this CustomTableBlockScreenHandler
+    public final CustomTableBlockEntity blockEntity;                                                                    //Creates a CustomTableBlockEntity variable for this CustomTableBlockScreenHandler
+    public FluidStack fluidStack;
 
-    public CustomTableBlockScreenHandler(int syncId, PlayerInventory playerInventory){                                  //Constructor for the CustomTableBlockScreenHandler
-        this(syncId,playerInventory,new SimpleInventory(3), new ArrayPropertyDelegate(2));
+    public CustomTableBlockScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf){                     //Constructor for the CustomTableBlockScreenHandler
+        this(syncId,inventory, inventory.player.getWorld().getBlockEntity(buf.readBlockPos()),                          //Read the BlockEntity off of the Inventory being read by the buf
+                new ArrayPropertyDelegate(2));                                                                     //Creates a new Property Delegate Set for the Screen Handler
     }
 
     public CustomTableBlockScreenHandler(int syncId, PlayerInventory playerInventory,                                   //Constructor for the CustomTableBlockScreenHandler
-                                         Inventory inventory, PropertyDelegate delegate) {
+                                         BlockEntity entity, PropertyDelegate delegate) {
         super(ModScreenHandlers.CUSTOM_TABLE_BLOCK_SCREEN_HANDLER, syncId);                                             //Sends a Super for the CustomTableBlockScreenHandler of (ModScreenHandlers.CUSTOM_TABLE_BLOCK_SCREEN_HANDLER, syncId)
-        checkSize(inventory, 3);                                                                            //Method to check the size of the inventory of the CustomTableBlockScreenHandler
-        this.inventory = inventory;                                                                                     //Assigns the inventory of this CustomTableBlockScreenHandler to the inventory of the CustomTableBlockEntity
+        checkSize((Inventory) entity, 3);                                                                   //Method to check the size of the inventory of the CustomTableBlockScreenHandler
+        this.inventory = (Inventory) entity;                                                                            //Assigns the inventory of this CustomTableBlockScreenHandler to the inventory of the CustomTableBlockEntity
         inventory.onOpen(playerInventory.player);                                                                       //calls the onOpen method to add the player's inventory to the ScreenHandler
         this.propertyDelegate = delegate;                                                                               //Assigns the propertyDelegate of this CustomTableBlockScreenHandler to the delegate of the CustomTableBlockEntity
-
+        this.blockEntity = (CustomTableBlockEntity) entity;                                                             //Casts the Block Entity as a CustomTableBlockEntity
+        this.fluidStack = new FluidStack(                                                                               //Creates a new Fluid stack when the handler is created
+                blockEntity.fluidStorage.variant,
+                blockEntity.fluidStorage.amount);
         this.addSlot(new Slot(inventory,0,12,15));                                                         //Assigns the 0 Slot and location
         this.addSlot(new Slot(inventory,1,86,15));                                                         //Assigns the 1 Slot and location
         this.addSlot(new Slot(inventory,2,86,60));                                                         //Assigns the 2 Slot and location
-
 
         addPlayerInventory(playerInventory);                                                                            //Method to add the Player's Inventory to the ScreenHandler type CustomTableBlockScreenHandler
         addPlayerHotBar(playerInventory);                                                                               //Method to add the Player's Hot Bar to the ScreenHandler type CustomTableBlockScreenHandler
 
         addProperties(delegate);                                                                                        //Method to add the delegate's property's to the ScreenHandler type CustomTableBlockScreenHandler
     }
-
+    public void setFluid(FluidStack stack) {                                                                            //Method to set the fluidStack to the stack provided
+        fluidStack = stack;
+    }
     public boolean isCrafting(){                                                                                        //Boolean Method that checks if the Crafting is true
-        return propertyDelegate.get(0) > 0;
+        return propertyDelegate.get(0) > 0;                                                                             //If the propertyDelegate for the progress(0) is greater than 0
     }
 
     public int getScaledProgress(){                                                                                     //Int Method that scales the progress of the Arrow Bar when crafting
@@ -79,7 +89,7 @@ public class CustomTableBlockScreenHandler  extends ScreenHandler {             
 
     @Override
     public boolean canUse(PlayerEntity player) {                                                                        //Boolean Method to allow the player to use the ScreenHandler or not
-        return this.inventory.canPlayerUse(player);
+        return this.inventory.canPlayerUse(player);                                                                     //Returns if the player can use //in these instances this will be true
     }
 
     private void addPlayerInventory(PlayerInventory playerInventory){                                                   //Helper Method to add player's inventory
@@ -95,4 +105,6 @@ public class CustomTableBlockScreenHandler  extends ScreenHandler {             
             this.addSlot(new Slot(playerInventory, i, 8+i*18, 144));                                             //Adding each slot at their locations index(0-8)
         }
     }
+
+
 }

@@ -4,23 +4,19 @@ import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.marcos.dndmod.util.IEntityDataSaver;
 import net.marcos.dndmod.util.ThirstLevelData;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
-import org.jetbrains.annotations.Nullable;
 
-public class CustomMessageTwoC2SPacket {
+public class CustomMessageTwoC2SPacket {                                                                                //Packet Class from the Client to the Server
     public static void  receive(                                                                                        //Creates receive method for the Packet
             MinecraftServer server,
             ServerPlayerEntity player,
